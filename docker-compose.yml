@@ -1,0 +1,39 @@
+version: "3.5"
+services:
+  
+  redis:
+    image: redis:alpine3.13
+    container_name: redis
+    restart: always
+    ports:
+        - "6379"
+    networks:
+        - phish_net
+  rspamd:
+    container_name: rspamd
+    build:  
+        context: ./rspamd 
+        args:
+            - DOMAIN=example.com
+            - DKIM_TAG=default
+    restart: always
+    depends_on:
+        - redis
+    #volumes:
+    #    - ./rspamd/:/etc/rspamd
+    #environment:
+    #   DKIM_TAG: 'default'
+    #   DOMAIN: 'example.com'
+    #environment:
+    #    - DKIM_TAG=default
+    #    - DOMAIN=example.com
+    ports:
+        - "11332"
+        - "11334"
+        - "11335"
+    networks:
+        - phish_net
+
+networks:
+  phish_net:
+    name: phish_net
