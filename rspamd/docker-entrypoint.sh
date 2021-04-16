@@ -12,6 +12,13 @@ then
     rspamadm dkim_keygen -s ${DKIM_TAG} -d ${DOMAIN} -b 2048 -k /var/lib/rspamd/dkim/${DOMAIN}.${DKIM_TAG}.key > /var/lib/rspamd/dkim/${DOMAIN}.${DKIM_TAG}.pub
 fi
 
+# Replace DKIM config
+sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" /etc/rspamd/local.d/dkim_signing.conf
+sed -i "s/DKIM_TAG/${DKIM_TAG}/g" /etc/rspamd/local.d/dkim_signing.conf
+# Replace ARC config
+sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" /etc/rspamd/local.d/arc.conf
+sed -i "s/DKIM_TAG/${DKIM_TAG}/g" /etc/rspamd/local.d/arc.conf
+
 echo "############# BEGIN ###############"
 echo " ENTER THE FOLLOWING DNS RECORDS "
 echo " Domain: ${DOMAIN}"

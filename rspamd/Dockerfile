@@ -2,11 +2,11 @@ FROM alpine:latest
 LABEL maintainer="Naz Markuta naz.markuta@6point6.co.uk"
 # source https://github.com/Mailu/Mailu/tree/master/core/rspamd
 
-ARG DOMAIN
-ARG DKIM_TAG
+#ARG DOMAIN
+#ARG DKIM_TAG
 
-ENV DOMAIN $DOMAIN
-ENV DKIM_TAG $DKIM_TAG
+#ENV DOMAIN $DOMAIN
+#ENV DKIM_TAG $DKIM_TAG
 
 # Image specific layers under this line
 RUN apk add --no-cache rspamd rspamd-controller rspamd-proxy rspamd-fuzzy ca-certificates curl
@@ -35,11 +35,11 @@ EXPOSE 11332/tcp 11334/tcp 11335/tcp
 #RUN echo $(rspamadm dkim_keygen -s ${DKIM_TAG} -d ${DOMAIN} -b 2048 -k /var/lib/rspamd/dkim/${DOMAIN}.${DKIM_TAG}.key > /var/lib/rspamd/dkim/${DOMAIN}.${DKIM_TAG}.pub)
 
 # Replace DKIM config
-RUN sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" /etc/rspamd/local.d/dkim_signing.conf
-RUN sed -i "s/DKIM_TAG/${DKIM_TAG}/g" /etc/rspamd/local.d/dkim_signing.conf
+#RUN sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" /etc/rspamd/local.d/dkim_signing.conf
+#RUN sed -i "s/DKIM_TAG/${DKIM_TAG}/g" /etc/rspamd/local.d/dkim_signing.conf
 # Replace ARC config
-RUN sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" /etc/rspamd/local.d/arc.conf
-RUN sed -i "s/DKIM_TAG/${DKIM_TAG}/g" /etc/rspamd/local.d/arc.conf
+#RUN sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" /etc/rspamd/local.d/arc.conf
+#RUN sed -i "s/DKIM_TAG/${DKIM_TAG}/g" /etc/rspamd/local.d/arc.conf
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 

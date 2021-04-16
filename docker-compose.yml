@@ -9,24 +9,16 @@ services:
         - "6379"
     networks:
         - phish_net
+  
   rspamd:
     container_name: rspamd
     build:  
         context: ./rspamd 
-        args:
-            - DOMAIN=example.com
-            - DKIM_TAG=default
     restart: always
     depends_on:
         - redis
-    #volumes:
-    #    - ./rspamd/:/etc/rspamd
-    #environment:
-    #   DKIM_TAG: 'default'
-    #   DOMAIN: 'example.com'
-    #environment:
-    #    - DKIM_TAG=default
-    #    - DOMAIN=example.com
+    env_file:
+        - 'settings.env'
     ports:
         - "11332"
         - "11334"
