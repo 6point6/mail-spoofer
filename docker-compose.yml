@@ -11,20 +11,16 @@ services:
         - phish_net
   
   rspamd:
+    image: 6point6/rspamd:0.1
     container_name: rspamd
-    build:  
-        context: ./rspamd 
-    restart: always
-    depends_on:
-        - redis
+    volumes:
+      - ./rspamd/lib/dkim:/var/lib/rspamd/dkim
     env_file:
-        - 'settings.env'
-    ports:
-        - "11332"
-        - "11334"
-        - "11335"
+      - 'settings.env'
+    depends_on:
+      - redis
     networks:
-        - phish_net
+      - phish_net
 
 networks:
   phish_net:
