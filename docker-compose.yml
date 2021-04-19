@@ -34,6 +34,17 @@ services:
     networks:
       - phish_net
 
+  gophish:
+    image: gophish/gophish:latest
+    depends_on:
+      - postfix
+    ports:
+      - "80"
+      - "3333:3333"
+      - "8080"
+    networks:
+      - phish_net
+
 networks:
   phish_net:
     name: phish_net
