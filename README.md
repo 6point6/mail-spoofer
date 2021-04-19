@@ -7,7 +7,7 @@ A Phishing set-up built on Docker (Caddy + GoPhish + Postfix + Rspamd)
 Get the latest repository by `git clone https://github.com/6point6/mail-spoofer.git`. 
 
 ### 2. Change the `settings.env` file
-You must must be changed to as you'll need to provide your own domain name and/or relay host.
+You must change the following to match your own domain name and/or relay host.
 
 * You MUST change the root domain name:
     `DOMAIN=example.com`
