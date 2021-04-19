@@ -37,4 +37,5 @@ ehthumbs.db
 Thumbs.db
 
 # rspamd generated DKIM keys
-lib/dkim/*
+lib/dkim/*.key
+lib/dkim/*.pub
