@@ -1,0 +1,44 @@
+{
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+(cloudflare) {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        alpn disable_tlsalpn_challenge
+    }
+}
+
+(security_headers) {
+    header * {
+            # enable HSTS
+            Strict-Transport-Security max-age=31536000;
+
+            # disable clients from sniffing the media type
+            X-Content-Type-Options nosniff
+
+            # clickjacking protection
+            X-Frame-Options DENY
+
+            # xss protection
+            X-XSS-Protection "1; mode=block"
+
+            # Remove Caddy from Headers
+            #-Server
+
+            # keep referrer data off of HTTP connections
+            Referrer-Policy no-referrer-when-downgrade
+    }
+}
+
+https://REPLACE_DOMAIN:3333 {
+    import cloudflare
+    import security_headers
+    reverse_proxy https://gophish:3333 {
+            transport http {
+                    tls
+                    tls_insecure_skip_verify
+                    read_buffer 8192
+            }
+    }
+}

@@ -38,10 +38,20 @@ services:
     image: gophish/gophish:latest
     depends_on:
       - postfix
+      - caddy
+    networks:
+      - phish_net
+  # TODO: Build and upload image to dockerhub
+  caddy:
+    container_name: caddy
+    env_file:
+      - 'settings.env'
+    build:  
+        context: ./caddy 
     ports:
-      - "80"
+      - "80:80"
+      - "443:443"
       - "3333:3333"
-      - "8080"
     networks:
       - phish_net
 
