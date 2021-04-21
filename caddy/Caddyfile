@@ -31,7 +31,7 @@
     }
 }
 
-https://REPLACE_DOMAIN:3333 {
+REPLACE_DOMAIN {
     import cloudflare
     import security_headers
     reverse_proxy https://gophish:3333 {

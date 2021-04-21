@@ -39,3 +39,6 @@ Thumbs.db
 # rspamd generated DKIM keys
 *.key
 *.pub
+
+# Caddy TLS certificates
+caddy/data/*

@@ -44,6 +44,8 @@ services:
   # TODO: Build and upload image to dockerhub
   caddy:
     container_name: caddy
+    volumes:
+      - ./caddy/data:/data/caddy
     env_file:
       - 'settings.env'
     build:  
@@ -51,7 +53,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "3333:3333"
     networks:
       - phish_net
 
