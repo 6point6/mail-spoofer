@@ -21,6 +21,7 @@ RUN mkdir /var/lib/rspamd/dkim/
 COPY local.d/ /etc/rspamd/local.d
 COPY override.d/ /etc/rspamd/override.d
 COPY docker-entrypoint.sh /
+COPY lua_auth_results.lua /usr/share/rspamd/lualib/lua_auth_results.lua
 RUN chmod +x /docker-entrypoint.sh
 
 # Ports for Rspamd
