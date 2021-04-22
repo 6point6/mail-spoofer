@@ -11,7 +11,9 @@ services:
         - phish_net
   
   rspamd:
-    image: 6point6/rspamd:0.2
+    #image: 6point6/rspamd:0.2
+    build:  
+        context: ./rspamd
     container_name: rspamd
     volumes:
       - ./rspamd/lib/dkim:/var/lib/rspamd/dkim
