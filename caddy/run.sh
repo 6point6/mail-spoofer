@@ -26,6 +26,13 @@ else
     -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
     -H "Content-Type: application/json" \
     --data "{\"type\":\"A\",\"name\":\"$dnsrecord\",\"content\":\"$ip\",\"ttl\":120,\"proxied\":false}" | jq
+    
+    # Change @ root record
+    curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records" \
+    -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+    -H "Content-Type: application/json" \
+    --data "{\"type\":\"A\",\"name\":\"$zone\",\"content\":\"$ip\",\"ttl\":120,\"proxied\":false}" | jq
+    
 fi
 
 # Continue with Caddy:
