@@ -42,3 +42,4 @@ Thumbs.db
 
 # Caddy TLS certificates
 caddy/data/*
+!caddy/data/.gitkeep 
