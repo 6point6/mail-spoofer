@@ -11,13 +11,12 @@ You must change the following to match your own domain name and/or relay host.
 
 * You MUST change the root domain name:
     `DOMAIN=example.com`
-
-* You MUST change the RETURN-PATH address also known as Mail-From address:
+* You MUST change the phish subdomain for gophish:
+    `PHISH_DOMAIN=phishy.example.com`
+* You MUST change the RETURN-PATH address:
     `RETURN_PATH_ADDRESS=no-reply@example.com`
-
 * You MUST change the Cloudflare API:
     `CLOUDFLARE_API=XXXXXXXXXXXXXX`
-
 * You can change the DKIM selector or you can leave it as default:
     `DKIM_TAG=default`
 
