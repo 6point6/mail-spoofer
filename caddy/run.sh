@@ -22,7 +22,7 @@ else
 
     echo "[$zone] Zone ID: $zoneid"
 
-    curl -s -X POST "https://api.cloudflare.com/client/v4/zones/dba52117af566ab302d80d49d9403d01/dns_records" \
+    curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records" \
     -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
     -H "Content-Type: application/json" \
     --data "{\"type\":\"A\",\"name\":\"$dnsrecord\",\"content\":\"$ip\",\"ttl\":120,\"proxied\":false}" | jq

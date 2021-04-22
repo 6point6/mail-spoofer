@@ -37,7 +37,7 @@ zoneid=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAI
 echo " ADDING TXT DNS RECORD TO CLOUDFLARE "
 
 # Add new TXT type DNS Record
-curl -s -X POST "https://api.cloudflare.com/client/v4/zones/dba52117af566ab302d80d49d9403d01/dns_records" \
+curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records" \
   -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
   -H "Content-Type: application/json" \
   --data "{\"type\":\"TXT\",\"name\":\"$dns_name\",\"content\":\"$record\",\"ttl\":120,\"proxied\":false}" | jq
