@@ -98,7 +98,7 @@ local function gen_auth_results(task, settings)
   table.insert(hdr_parts, string.format('%s', spoof_sender_hdr))
   table.insert(hdr_parts, string.format('dkim=pass header.d=%s', spoof_sender_hdr))
   table.insert(hdr_parts, string.format('dmarc=pass action=none header.from=%s', spoof_sender_hdr))
-  table.insert(hdr_parts, string.format('spf=pass (%s: domain of %s designates DYNAMIC_IP_ADDRESS as permitted sender)', spoof_sender_hdr, sender ))
+  table.insert(hdr_parts, string.format('spf=pass (%s: domain of %s designates DYNAMIC_IP_ADDRESS as permitted sender) smtp.mailfrom=%s', spoof_sender_hdr, sender, sender))
 
 
   return table.concat(hdr_parts, '; ')
