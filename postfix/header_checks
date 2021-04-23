@@ -1,0 +1,6 @@
+/^Received:.*/              IGNORE
+/^X-Originating-IP:/    IGNORE
+/^X-Mailer:/            IGNORE
+/^Mime-Version:/        IGNORE
+/^User-Agent:/          IGNORE
+#/^Message-ID:/          IGNORE

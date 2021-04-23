@@ -1,0 +1,93 @@
+#!/bin/sh
+
+# Make and reown postfix folders
+mkdir -p /var/spool/postfix/ && mkdir -p /var/spool/postfix/pid
+chown root: /var/spool/postfix/
+chown root: /var/spool/postfix/pid
+
+# TESTING NO BOUNCE
+echo "no-reply@$DOMAIN no-reply" > /etc/postfix/virtual_alias
+
+newaliases
+postmap /etc/postfix/virtual_alias
+postmap /etc/aliases
+## END ##
+
+# Update aliases database. It's not used, but postfix complains if the .db file is missing
+postalias /etc/postfix/aliases
+
+# Disable SMTPUTF8, because libraries (ICU) are missing in alpine
+postconf -e "smtputf8_enable=no"
+
+# Resolve DNS using /etc/hosts
+postconf -e "smtp_host_lookup=native"
+
+# Disable local mail delivery (smtp-relay-ip-here)
+postconf -e "mydestination=$DOMAIN"
+
+# Hostname
+postconf -e "myhostname=$DOMAIN"
+
+# Don't relay for any domains
+#postconf -e relay_domains=
+postconf -e "message_size_limit=0"
+postconf -e "header_size_limit=4096000"
+postconf -e "mailbox_size_limit=0"
+
+# Reject invalid HELOs
+#postconf -e smtpd_delay_reject=yes
+#postconf -e smtpd_helo_required=yes
+#postconf -e "smtpd_helo_restrictions=permit_mynetworks,reject_invalid_helo_hostname,permit"
+#postconf -e "smtpd_sender_restrictions=permit_mynetworks"
+
+# Mail user agent restrictions adapted from https://askubuntu.com/a/1132874
+postconf -e "smtpd_restriction_classes = mua_sender_restrictions,mua_client_restrictions,mua_helo_restrictions"
+postconf -e "mua_sender_restrictions = permit_sasl_authenticated,reject"
+postconf -e "mua_client_restrictions = permit_sasl_authenticated,reject"
+postconf -e "mua_helo_restrictions = permit_mynetworks,reject_non_fqdn_hostname,reject_invalid_hostname,permit"
+
+# No Authentication
+postconf -e "smtpd_sasl_auth_enable = no"
+
+# Rspamd Milter configuration
+postconf -e "milter_default_action = accept"
+postconf -e "milter_protocol = 6"
+#milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
+postconf -e "smtpd_milters = inet:rspamd:11332"
+postconf -e "non_smtpd_milters = inet:rspamd:11332"
+
+# Return-Path (MFrom address)
+if [ ! -z "$RETURN_PATH_ADDRESS" ]; then
+	postconf -e "sender_canonical_maps = static:$RETURN_PATH_ADDRESS"
+else
+	postconf -# sender_canonical_maps
+fi
+
+#########
+
+# Relayhost
+if [ ! -z "$RELAYHOST" ]; then
+	postconf -e "relayhost=$RELAYHOST"
+else
+	postconf -# relayhost
+	postconf -# smtp_sasl_auth_enable
+	postconf -# smtp_sasl_password_maps
+	postconf -# smtp_sasl_security_options
+fi
+
+############
+
+
+# MyNetworks
+if [ ! -z "$MYNETWORKS" ]; then
+	postconf -e "mynetworks=$MYNETWORKS"
+else
+    # Use default networks
+	postconf -e "mynetworks=127.0.0.0/8,172.16.0.0/12"
+fi
+
+# Remove headers before sending Mail
+postconf -e "smtp_header_checks=regexp:/etc/postfix/header_checks"
+
+# Start Postfix service with Supervisor Daemon
+exec supervisord -c /etc/supervisord.conf

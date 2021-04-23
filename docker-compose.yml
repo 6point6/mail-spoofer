@@ -25,7 +25,9 @@ services:
       - phish_net
 
   postfix:
-    image: 6point6/postfix:0.2
+    #image: 6point6/postfix:0.2
+    build:  
+        context: ./postfix
     container_name: postfix
     env_file:
       - 'settings.env'
