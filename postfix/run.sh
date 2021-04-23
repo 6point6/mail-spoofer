@@ -6,14 +6,7 @@ chown root: /var/spool/postfix/
 chown root: /var/spool/postfix/pid
 
 # TESTING NO BOUNCE
-echo "no-reply@$DOMAIN no-reply" > /etc/postfix/virtual_alias
-
-newaliases
-postmap /etc/postfix/virtual_alias
-postmap /etc/aliases
-## END ##
-
-# Update aliases database. It's not used, but postfix complains if the .db file is missing
+echo "no-reply:         /dev/null" >> /etc/postfix/aliases
 postalias /etc/postfix/aliases
 
 # Disable SMTPUTF8, because libraries (ICU) are missing in alpine
@@ -22,8 +15,8 @@ postconf -e "smtputf8_enable=no"
 # Resolve DNS using /etc/hosts
 postconf -e "smtp_host_lookup=native"
 
-# Disable local mail delivery (smtp-relay-ip-here)
-postconf -e "mydestination=$DOMAIN"
+# Enable local mail delivery (Bounced Messages)
+postconf -e "mydestination=localhost"
 
 # Hostname
 postconf -e "myhostname=$DOMAIN"
