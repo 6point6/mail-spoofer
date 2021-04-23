@@ -7,8 +7,9 @@ dmarc_name=_dmarc.${DOMAIN}
 # DNS name for SPF record
 spf_name=${DOMAIN}
 
-# Get the current external IP address
+# Get IP address
 ip=$(curl -s -X GET https://checkip.amazonaws.com)
+sed -i "s/DYNAMIC_IP_ADDRESS/$ip/g" /usr/share/rspamd/lualib/lua_auth_results.lua
 
 # Set standard logging if no modification exists
 if [ ! -e /etc/rspamd/local.d/logging.inc ] && [ ! -e /etc/rspamd/override.d/logging.inc ];
@@ -49,12 +50,11 @@ zoneid=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${DOMAI
   -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
   -H "Content-Type: application/json" | jq -r '{"result"}[] | .[0] | .id')
 
-
 # Add new DKIM TXT type DNS Record
 curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records" \
   -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
   -H "Content-Type: application/json" \
-  --data "{\"type\":\"TXT\",\"name\":\"$dns_name\",\"content\":\"$dkim_record\",\"ttl\":120,\"proxied\":false}" | jq
+  --data "{\"type\":\"TXT\",\"name\":\"$dkim_name\",\"content\":\"$dkim_record\",\"ttl\":120,\"proxied\":false}" | jq
 
 # Add new DMARC TXT type DNS Record
 curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$zoneid/dns_records" \
