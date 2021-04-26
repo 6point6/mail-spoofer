@@ -6,6 +6,7 @@ chown root: /var/spool/postfix/
 chown root: /var/spool/postfix/pid
 
 # TESTING NO BOUNCE
+echo "8.8.8.8           $DOMAIN" >> /etc/hosts # ugly fix using sinkhole.paloaltonetworks.com
 echo "no-reply:         /dev/null" >> /etc/postfix/aliases
 postalias /etc/postfix/aliases
 
