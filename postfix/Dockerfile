@@ -8,7 +8,6 @@ RUN apk add --no-cache postfix tzdata supervisor rsyslog
 COPY run.sh /
 # Remove the below when pushing to dockerhub
 RUN chmod +x /run.sh
-COPY aliases /etc/aliases
 COPY supervisord.conf /etc/supervisord.conf
 COPY rsyslog.conf /etc/rsyslog.conf
 COPY header_checks /etc/postfix/header_checks
