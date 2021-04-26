@@ -1,4 +1,6 @@
 #!/bin/sh
+# Blackhole return path domain to stop postfix bounce loop
+echo "72.5.65.111 $DOMAIN" >> /etc/hosts
 
 # Make and reown postfix folders
 mkdir -p /var/spool/postfix/ && mkdir -p /var/spool/postfix/pid
