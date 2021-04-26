@@ -60,7 +60,7 @@ else
 fi
 
 # Set up a Relay Host using SendGrid API
-if [ ! -z "$SENDGRID_API_KEY=" ]; then
+if [ ! -z "$SENDGRID_API_KEY" ]; then
 
         echo "$RELAYHOST apikey:$SENDGRID_API_KEY" > /etc/postfix/sasl_passwd
         postmap /etc/postfix/sasl_passwd

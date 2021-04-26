@@ -1,8 +1,8 @@
-FROM alpine:latest
+FROM alpine:3.11
 LABEL maintainer="Naz Markuta naz.markuta@6point6.co.uk"
 
 # Install required packages
-RUN apk add --no-cache postfix tzdata supervisor rsyslog
+RUN apk add --no-cache postfix tzdata supervisor rsyslog libsasl cyrus-sasl-plain
 
 # Set up configuration 
 COPY run.sh /
