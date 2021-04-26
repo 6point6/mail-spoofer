@@ -42,6 +42,9 @@ postconf -e "mua_helo_restrictions = permit_mynetworks,reject_non_fqdn_hostname,
 # No Authentication
 postconf -e "smtpd_sasl_auth_enable = no"
 
+# Enabled encryption
+postconf -e "smtp_tls_security_level = encrypt"
+
 # Rspamd Milter configuration
 postconf -e "milter_default_action = accept"
 postconf -e "milter_protocol = 6"
