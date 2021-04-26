@@ -60,20 +60,24 @@ else
 	postconf -# sender_canonical_maps
 fi
 
-#########
+# Set up a Relay Host using SendGrid API
+if [ ! -z "$SENDGRID_API_KEY=" ]; then
 
-# Relayhost
-if [ ! -z "$RELAYHOST" ]; then
-	postconf -e "relayhost=$RELAYHOST"
+        echo "$RELAYHOST apikey:$SENDGRID_API_KEY" > /etc/postfix/sasl_passwd
+        postmap /etc/postfix/sasl_passwd
+        postconf -e "relayhost=$RELAYHOST"
+        postconf -e "smtp_sasl_auth_enable=yes"
+        postconf -e "smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd"
+        postconf -e "smtp_sasl_security_options = noanonymous"
+        postconf -e "smtp_sasl_tls_security_options = noanonymous"
+        postconf -e "header_size_limit = 4096000"
+
 else
-	postconf -# relayhost
-	postconf -# smtp_sasl_auth_enable
-	postconf -# smtp_sasl_password_maps
-	postconf -# smtp_sasl_security_options
+        postconf -# relayhost
+        postconf -# smtp_sasl_auth_enable
+        postconf -# smtp_sasl_password_maps
+        postconf -# smtp_sasl_security_options
 fi
-
-############
-
 
 # MyNetworks
 if [ ! -z "$MYNETWORKS" ]; then
