@@ -35,7 +35,7 @@
     }
 }
 
-REPLACE_DOMAIN {
+https://REPLACE_DOMAIN:3333 {
     import cloudflare
     import security_headers
     reverse_proxy https://gophish:3333 {
@@ -44,5 +44,13 @@ REPLACE_DOMAIN {
                     tls_insecure_skip_verify
                     read_buffer 8192
             }
+    }
+}
+
+REPLACE_TRACK_DOMAIN {
+    import cloudflare
+    import security_headers
+    reverse_proxy * {
+        to gophish:80
     }
 }
