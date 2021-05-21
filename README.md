@@ -1,5 +1,5 @@
 # Mail-Spoofer
-A Phishing set-up built on Docker (Caddy + GoPhish + Postfix + Rspamd)
+A proof of concept email spoofing tool built on Docker. This tool abuses domains which have misconfigured or missing DMARC records to send spoofed messages. It uses these technologies – Caddy, GoPhish, Postfix, and Rspamd – including integration with Cloudflare API to automatically configure DNS records.
 
 ## How-to Run with Docker
 
@@ -21,15 +21,19 @@ You must change the following to match your own domain name and/or relay host. F
     `DKIM_TAG=default`
 
 ### 3. Run Docker-compose
-To start all the containers simply go to the repository and type: `docker-compose up`. To stop all containers type: `docker-compose down`.
+To start all the containers go to the repository folder and type: `docker-compose up`. 
+
+To stop all containers type: `docker-compose down`.
 
 ### 4. Open Gophish web management 
-The web management portal is accessible from the root domain you specified over a HTTPS port `3333`. 
-For example the domain name `example.com` will have to navigate to `https://example.com:3333`. There you will be asked to log-in using the default Gophish credentials. For versions `0.9.0` and below the default username and password are `admin` and `gophish`. On newer version the password is automatically generated and can be retrieved by `docker logs {gophish-container-name}`.
+The Gophish web management portal will be accessible on `https://example.com:3333`. You will be asked to log-in using the default Gophish credentials. 
 
+With versions `0.9.0` and below the default username and password is `admin` and `gophish`. On newer versions of Gophish the password is automatically generated and can be retrieved by `docker logs {gophish-container-name}`.
 
 ## Building containers
-If you are going to be modifying code or making improvements to our tool you need update the `docker-compose.yml` file you need to build your own containers. Youu need to replace the `image` argument with the `build` context, and also be sure to include the required directory. For example:
+If you are planning to build your own container to modify code or make further improvements to the tool you need update the `docker-compose.yml`. You need to replace the `image` argument with the `build` context, and also be sure to include the required directory. 
+
+For example:
 ```yml
 postfix:
     build:  
