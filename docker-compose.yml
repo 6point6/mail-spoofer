@@ -52,6 +52,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "3333:3333"
     networks:
       - phish_net
 
