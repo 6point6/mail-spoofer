@@ -11,9 +11,7 @@ services:
         - phish_net
   
   rspamd:
-    #image: 6point6/rspamd:0.2
-    build:  
-        context: ./rspamd
+    image: 6labs/mail_spoofer_rspamd:0.2.2
     container_name: rspamd
     volumes:
       - ./rspamd/lib/dkim:/var/lib/rspamd/dkim
@@ -25,9 +23,7 @@ services:
       - phish_net
 
   postfix:
-    #image: 6point6/postfix:0.2
-    build:  
-        context: ./postfix
+    image: 6labs/mail_spoofer_postfix:0.2.2
     container_name: postfix
     env_file:
       - 'settings.env'
@@ -45,15 +41,14 @@ services:
       - caddy
     networks:
       - phish_net
-  # TODO: Build and upload image to dockerhub
+
   caddy:
+    image: 6labs/mail_spoofer_caddy:0.2.2
     container_name: caddy
     volumes:
       - ./caddy/data:/data/caddy
     env_file:
       - 'settings.env'
-    build:  
-        context: ./caddy 
     ports:
       - "80:80"
       - "443:443"
