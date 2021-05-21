@@ -5,7 +5,7 @@ track_dnsrecord=${TRACK_DOMAIN}
 
 # Replace ALL domain name records within Caddyfile
 sed -i "s/REPLACE_DOMAIN/$zone/"g /etc/caddy/Caddyfile
-sed -i "s/REPLACE_TRACK_DOMAIN/$track_domain/"g /etc/caddy/Caddyfile
+sed -i "s/REPLACE_TRACK_DOMAIN/$track_dnsrecord/"g /etc/caddy/Caddyfile
 
 # Get the current external IP address
 ip=$(curl -s -X GET https://checkip.amazonaws.com)
