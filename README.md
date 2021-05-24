@@ -11,8 +11,8 @@ You must change the following to match your own domain name and/or relay host. F
 
 * You MUST change the root domain name:
     `DOMAIN=example.com`
-* You MUST change the click subdomain for gophish:
-    `CLICK_DOMAIN=click.example.com`
+* You MUST change the track subdomain for gophish:
+    `TRACK_DOMAIN=click.example.com`
 * You MUST change the RETURN-PATH address:
     `RETURN_PATH_ADDRESS=no-reply@example.com`
 * You MUST change the Cloudflare API:
