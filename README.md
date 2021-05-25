@@ -25,6 +25,7 @@ For the Return-Path address, leave the username as "no-reply" and only change th
 * You MUST change the tracking subdomain for GoPhish: TRACK_DOMAIN=click.example.com
 * You MUST change the Return-Path address: RETURN_PATH_ADDRESS=no-reply@example.com
 * You MUST change the Cloudflare API for editing DNS: CLOUDFLARE_API_TOKEN={Cloudflare_API_Key}
+
 If you are using a third-party (SendGrid) then change.
 * Add your SendGrid API Key to: SENDGRID_API_KEY={Sendgrid_API_Key}
 
