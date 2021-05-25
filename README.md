@@ -1,4 +1,4 @@
-# Mail-Spoofer
+# Mail Spoofer
 One of the biggest mistakes the cybersecurity industry has made is believing SPF, DKIM, and ARC prevent email contents spoofing.
 
 Mail Spoofer is a Proof-of-Concept email spoofing tool built on Docker. We created it to target domains with missing or misconfigured DMARC records.
