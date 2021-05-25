@@ -8,7 +8,7 @@ The tool massively reduces the effort of setting up PTR, SPF, DKIM and ARC infra
 Mail Spoofer uses these technologies — Caddy, GoPhish, Postfix, and Rspamd —including Cloudflare API integration to configure DNS records automatically.
 
 * For guidance on checking and fixing your domain, please read this article. **UPDATE**
-* For guidance on checking and fixing your domain, please read this article. **UPDATE**
+* For an overview of email, SMTP and security technologies, please read this article. **UPDATE**
 * Acess our [Mail Spoofer](https://github.com/6point6/mail-spoofer) tool and how-to guides on the [Mail Spoofer Wiki](https://github.com/6point6/mail-spoofer/wiki).
 * For help identifying vulnerable domains, check out our tool [DMARC Checker](https://github.com/6point6/dmarc_checker) and its [Wiki](https://github.com/6point6/dmarc_checker/wiki).
 
