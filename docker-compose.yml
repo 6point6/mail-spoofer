@@ -11,7 +11,7 @@ services:
         - phish_net
   
   rspamd:
-    image: 6labs/mail_spoofer_rspamd:0.2.2
+    image: 6labs/mail_spoofer_rspamd:0.2.3
     container_name: rspamd
     volumes:
       - ./rspamd/lib/dkim:/var/lib/rspamd/dkim
@@ -23,7 +23,7 @@ services:
       - phish_net
 
   postfix:
-    image: 6labs/mail_spoofer_postfix:0.2.2
+    image: 6labs/mail_spoofer_postfix:0.2.3
     container_name: postfix
     env_file:
       - 'settings.env'
@@ -43,7 +43,7 @@ services:
       - phish_net
 
   caddy:
-    image: 6labs/mail_spoofer_caddy:0.2.2
+    image: 6labs/mail_spoofer_caddy:0.2.3
     container_name: caddy
     volumes:
       - ./caddy/data:/data/caddy
