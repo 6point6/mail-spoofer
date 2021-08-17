@@ -54,7 +54,7 @@ postfix:
 You will need to do this for all services you have modified.
 
 #### Build and start containers
-To build and start all the containers, type `docker-compose up -d --build`. The `-d' option will daemonize all containers.
+To build and start all the containers, type `docker-compose up -d --build`. The `-d` option will daemonize all containers.
 
 #### Stop all containers
 To stop all containers type `docker-compose down -v`
