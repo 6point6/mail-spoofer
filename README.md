@@ -3,15 +3,12 @@ One of the biggest mistakes the cybersecurity industry has made is believing SPF
 
 Mail Spoofer is a Proof-of-Concept email spoofing tool built on Docker. We created it to target domains with missing or misconfigured DMARC records.
 
-The tool massively reduces the effort of setting up PTR, SPF, DKIM and ARC infrastructure. Our guiding principle is to reduce the complexity of spoofing attacks, educate the cybersecurity industry and force organizations into universally applying DMARC records.
+The tool reduces the effort of setting up PTR, SPF, DKIM and ARC infrastructure. Our guiding principle is to reduce the complexity of spoofing attacks, educate the cybersecurity industry and force organizations into universally applying DMARC records.
 
 Mail Spoofer uses these technologies — Caddy, GoPhish, Postfix, and Rspamd —including Cloudflare API integration to configure DNS records automatically.
 
 For more detailed help, how-to guides and materials check out the [Mail Spoofer Wiki](https://github.com/6point6/mail-spoofer/wiki).
 
-* For guidance on checking and fixing your domain, please read this article. **UPDATE**
-* For an overview of email, SMTP and security technologies, please read this article. **UPDATE**
-* For an overview of the SPF, DKIM, DMARC and ARC weaknesses we exploit, check out this article. **UPDATE**
 * Access our [Mail Spoofer](https://github.com/6point6/mail-spoofer) tool and how-to guides on the [Mail Spoofer Wiki](https://github.com/6point6/mail-spoofer/wiki).
 * For help identifying vulnerable domains, check out our tool [DMARC Checker](https://github.com/6point6/dmarc_checker) and its [Wiki](https://github.com/6point6/dmarc_checker/wiki).
 
@@ -29,6 +26,8 @@ For the Return-Path address, leave the username as "no-reply" and only change th
 * You MUST change the tracking subdomain for GoPhish: TRACK_DOMAIN=click.example.com
 * You MUST change the Return-Path address: RETURN_PATH_ADDRESS=no-reply@example.com
 * You MUST change the Cloudflare API for editing DNS: CLOUDFLARE_API_TOKEN={Cloudflare_API_Key}
+
+**Warning — SendGrid DOES NOT WORK WITH RECENT API KEYS**
 
 If you are using a third-party (SendGrid) then change.
 * Add your SendGrid API Key to: SENDGRID_API_KEY={Sendgrid_API_Key}
